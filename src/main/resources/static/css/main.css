@@ -1,0 +1,18 @@
+.container{
+    width: 960px;
+}
+.upload-container{
+    border: 1px solid #100d0d;
+}
+
+table {
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-collapse: collapse;
+    text-align: left;
+    width: 80%;
+}
+th, tr, td {
+    border: 1px solid #9c9999;
+    padding: 8px;
+}
