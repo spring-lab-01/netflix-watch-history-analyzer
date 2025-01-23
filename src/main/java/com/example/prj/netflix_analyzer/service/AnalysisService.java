@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,32 +18,19 @@ import java.util.stream.IntStream;
 @Service
 public class AnalysisService {
 
-
     public List<WatchedSummary> getWatchedContentByProfile(List<ViewingActivity> viewingActivityList) {
-                return viewingActivityList.stream()
-                        .sorted(Comparator.comparing(ViewingActivity::getTitle))
-                        .collect(Collectors.groupingBy(ViewingActivity::getProfile))
-                        .entrySet().stream().map(e->{
-                            String profile = e.getKey();
-                            return e.getValue().stream()
-                                    .collect(Collectors.groupingBy(ViewingActivity::getYear))
-                                    .entrySet().stream().map(e1 -> {
-                                        String year = e1.getKey();
-                                        Integer watchedContent = e1.getValue().size();
-                                        Duration watchedDuration = Duration.ofSeconds(e1.getValue().stream().map(ViewingActivity::getDuration).map(Duration::getSeconds).reduce(Long::sum).orElse(0L));
-                                        return new WatchedSummary(profile, watchedContent, watchedDuration, DurationFormatUtils.formatDurationWords(watchedDuration.toMillis(), true, true), year);
-                                    }).toList();
-                        }).flatMap(List::stream)
-                        .sorted(Comparator.comparing(WatchedSummary::getProfile).thenComparing(WatchedSummary::getYear))
-                        .collect(Collectors.toList());
+        return summarizeByField(viewingActivityList, ViewingActivity::getProfile);
     }
- //&& v.getProfile().trim().equalsIgnoreCase(profile) && v.getYear().trim().equalsIgnoreCase(year)
 
     public List<WatchedSummary> getWatchedContentByDevice(List<ViewingActivity> viewingActivityList) {
+        return summarizeByField(viewingActivityList, ViewingActivity::getDevice);
+    }
+
+    private static List<WatchedSummary> summarizeByField(List<ViewingActivity> viewingActivityList, Function<? super ViewingActivity, String> field) {
         return viewingActivityList.stream()
                 .sorted(Comparator.comparing(ViewingActivity::getTitle))
-                .collect(Collectors.groupingBy(ViewingActivity::getDevice))
-                .entrySet().stream().map(e->{
+                .collect(Collectors.groupingBy(field))
+                .entrySet().stream().map(e -> {
                     String profile = e.getKey();
                     return e.getValue().stream()
                             .collect(Collectors.groupingBy(ViewingActivity::getYear))
