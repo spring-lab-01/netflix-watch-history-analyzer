@@ -1,0 +1,22 @@
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'watched-content')}">
+<body>
+<div class="container">
+  <h3>Watched Content List for Profile: [[${profile}]] in Year [[${year}]]</h3>
+  <div th:if="${content.size() > 0}">
+    <table>
+      <tbody>
+      <tr th:each="item : ${content}">
+        <td>[[${item.title}]]</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:unless="${content.size() > 0}">
+    <span>No Content found!</span>
+  </div>
+</div>
+</body>
+
+</html>

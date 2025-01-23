@@ -1,9 +1,10 @@
-package com.example.prj.netflix_analyzer;
+package com.example.prj.netflix_analyzer.endpoint;
 
+import com.example.prj.netflix_analyzer.service.TempStorage;
 import com.example.prj.netflix_analyzer.model.ViewingActivity;
 import com.example.prj.netflix_analyzer.model.WatchedSummary;
 import com.example.prj.netflix_analyzer.service.AnalysisService;
-import com.example.prj.netflix_analyzer.service.FileUploadService;
+import com.example.prj.netflix_analyzer.service.UploadService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -16,13 +17,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-public class FileUploadController {
+public class UploadEndpoint {
 
     private final AnalysisService analysisService;
-    private final FileUploadService fileUploadService;
+    private final UploadService fileUploadService;
 
 
-    public FileUploadController(AnalysisService fileUploadService, FileUploadService fileUploadService1) {
+    public UploadEndpoint(AnalysisService fileUploadService, UploadService fileUploadService1) {
         this.analysisService = fileUploadService;
         this.fileUploadService = fileUploadService1;
     }
@@ -38,6 +39,7 @@ public class FileUploadController {
             } else {
                 List<String> lines = fileUploadService.upload(file);
                 List<ViewingActivity> viewingActivityList = analysisService.getViewingActivity(lines);
+                TempStorage.viewingActivities = viewingActivityList;
                 List<WatchedSummary> getWatchedContentByProfile = CollectionUtils.isEmpty(viewingActivityList) ? Collections.emptyList() : analysisService.getWatchedContentByProfile(viewingActivityList);
                 model.addAttribute("watchedContentByProfile", getWatchedContentByProfile);
                 List<WatchedSummary> watchedContentByDevice = CollectionUtils.isEmpty(viewingActivityList) ? Collections.emptyList() : analysisService.getWatchedContentByDevice(viewingActivityList);

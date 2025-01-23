@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class FileUploadService {
+public class UploadService {
 
     @Value("${upload.path}")
     private String uploadPath;

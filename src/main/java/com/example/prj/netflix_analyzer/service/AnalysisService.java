@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -99,4 +100,17 @@ public class AnalysisService {
         return Duration.ofSeconds(Long.parseLong(arr[0])*60*60 + Long.parseLong(arr[1])*60 + Long.parseLong(arr[2]));
     }
 
+    public List<ViewingActivity> getWatchedContentByPredicate(List<ViewingActivity> viewingActivities, Predicate<ViewingActivity> predicate) {
+        return viewingActivities.stream().filter(predicate).collect(Collectors.toList());
+    }
+
+    public static Predicate<ViewingActivity> predicateProfileAndYear(String profile, String year) {
+        return v -> v.getProfile().trim().equalsIgnoreCase(profile)
+                && v.getYear().trim().equalsIgnoreCase(year);
+    }
+
+    public static Predicate<ViewingActivity> predicateDeviceAndYear(String device, String year) {
+        return v -> v.getDevice().trim().equalsIgnoreCase(device)
+                && v.getYear().trim().equalsIgnoreCase(year);
+    }
 }
