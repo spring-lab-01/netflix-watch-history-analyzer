@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+
+<body>
+
+<div class="container align-content-center">
+    <a th:href="@{/}"><button class="cta-button">Clear data and return to home</button></a> &nbsp; &nbsp;
+</div>
+
+    <div th:if="${message != null}"
+         class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+         role="alert">
+        [[${message}]]
+    </div>
+
+    <div th:if="${watchedContentByProfile.size() > 0}">
+        <h3>Viewing Summary By Profile</h3>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Profile</th>
+                <th scope="col">Year</th>
+                <th scope="col">Total Watched</th>
+                <th scope="col">Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="content : ${watchedContentByProfile}">
+                <td>[[${content.profile}]]</td>
+                <td>[[${content.year}]]</td>
+                <td> <a th:href="@{'/watched-content-profile/' + ${content.profile} + '/' + ${content.year}}">[[${content.total}]]</a> </td>
+                <td>[[${content.totalDuration}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <div th:if="${watchedContentByDevice.size() > 0}">
+            <h3>Viewing Summary By Device</h3>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Device</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Total Watched</th>
+                    <th scope="col">Duration</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="content : ${watchedContentByDevice}">
+                    <td>[[${content.profile}]]</td>
+                    <td>[[${content.year}]]</td>
+                    <td> <a th:href="@{'/watched-content-device/' + ${content.profile} + '/' + ${content.year}}">[[${content.total}]]</a> </td>
+                    <td>[[${content.totalDuration}]]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+</body>
+
+</html>

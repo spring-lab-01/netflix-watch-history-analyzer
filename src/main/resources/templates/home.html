@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+
+<body>
+
+    <div class="hero">
+        <h2>Unlock Your Netflix Insights</h2>
+        <p>Analyze your watch history and trends</p>
+    </div>
+
+    <div th:if="${message != null}"
+         class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+         role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="hero align-right">
+            Upload ViewingActivity.csv file which is inside zip file received from Netflix.
+            <div>
+                <br/>
+                <div>
+                    <form
+                            id="uploadFile"
+                            method="post"
+                            th:action="@{/upload}"
+                            enctype="multipart/form-data">
+                        <input id="input-file" type="file" name="file" class="cta-button"/>
+                        <button type="submit" class="cta-button">
+                            Upload
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <div class="section">
+        <h2>How It Works</h2>
+        <ol>
+            <li>Upload ViewingActivity.csv from Netflix zip file.</li>
+            <li>Let our app process your data.</li>
+            <li>Explore your personalized watch history analytics.</li>
+        </ol>
+    </div>
+    <div class="section">
+        <h2>How to get ViewingActivity.csv file</h2>
+        <ol>
+            <li>Submit Request to Netflix from link - https://www.netflix.com/account/getmyinfo </li>
+            <li>You will receive link in your email to download zip file</li>
+            <li>Unzip file and find ViewingActivity.csv under folder CONTENT_INTERACTION</li>
+        </ol>
+    </div>
+</body>
+</html>

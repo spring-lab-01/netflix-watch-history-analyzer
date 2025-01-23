@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en" th:fragment="layout (template, menu)">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+  <title>Netflix Watch History Analyzer</title>
+  <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+<header>
+  <h1> Netflix Watch History Analyzer</h1>
+</header>
+
+  <div class="container-fluid">
+    <div class="container">
+      <th:block th:insert="${template}" />
+    </div>
+  </div>
+
+</body>
+<footer>
+  *This is not an official Netflix site.
+  <p>&copy; 2025 Netflix Watch History Analyzer. All rights reserved.</p>
+</footer>
+</html>
+

@@ -49,7 +49,7 @@ public class FileUploadController {
         finally {
             model.addAttribute("message", message);
         }
-        return "index";
+        return "analysis";
     }
 
 }

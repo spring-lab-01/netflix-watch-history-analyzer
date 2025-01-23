@@ -17,6 +17,6 @@ public class NetflixAnalyzerApplication {
 
 	@GetMapping
 	public String getHome() {
-		return "index";
+		return "home";
 	}
 }
