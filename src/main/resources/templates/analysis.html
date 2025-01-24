@@ -6,15 +6,8 @@
 <body>
 
 <div class="container align-content-center">
-    <a th:href="@{/}"><button class="cta-button">Clear data and return to home</button></a> &nbsp; &nbsp;
+    <a th:href="@{/clear}"><button class="cta-button">Clear data</button></a> &nbsp; &nbsp;
 </div>
-
-    <div th:if="${message != null}"
-         class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
-         role="alert">
-        [[${message}]]
-    </div>
-
     <div th:if="${watchedContentByProfile.size() > 0}">
         <h3>Viewing Summary By Profile</h3>
         <table class="table table-hover">

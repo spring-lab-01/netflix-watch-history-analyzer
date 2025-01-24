@@ -2,7 +2,7 @@
       th:replace="~{fragments/layout :: layout (~{::body},'watched-content')}">
 <body>
 <div class="container">
-  <h3>Watched Content List for Profile: [[${profile}]] in Year [[${year}]]</h3>
+  <h3>Watched Content List for [[${type}]] [[${profile}]] in Year [[${year}]]</h3>
   <div th:if="${content.size() > 0}">
     <table>
       <tbody>

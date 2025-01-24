@@ -21,10 +21,11 @@ public class WatchedContentEndpoint {
         String message = "";
         try {
             model.addAttribute("contentType","Profile");
-            model.addAttribute("content", analysisService.getWatchedContentByPredicate(TempStorage.viewingActivities, AnalysisService.predicateProfileAndYear(profile, year)));
+            model.addAttribute("content", analysisService.getWatchedContentByPredicate(TempStorage.getViewingActivities(), AnalysisService.predicateProfileAndYear(profile, year)));
             model.addAttribute("profile", profile);
             model.addAttribute("year", year);
             model.addAttribute("message", message);
+            model.addAttribute("type", "Profile");
         } catch (Exception e) {
             message = "Could not get Watched Content. Error: " + e.getMessage();
             model.addAttribute("message", message);
@@ -37,7 +38,8 @@ public class WatchedContentEndpoint {
         String message = "";
         try {
             model.addAttribute("contentType","Device");
-            model.addAttribute("content", analysisService.getWatchedContentByPredicate(TempStorage.viewingActivities, AnalysisService.predicateDeviceAndYear(device, year)));
+            model.addAttribute("content", analysisService.getWatchedContentByPredicate(TempStorage.getViewingActivities(), AnalysisService.predicateDeviceAndYear(device, year)));
+            model.addAttribute("type", "Device");
             model.addAttribute("profile", device);
             model.addAttribute("year", year);
             model.addAttribute("message", message);

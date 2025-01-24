@@ -38,12 +38,8 @@ public class UploadEndpoint {
                 message = "Please upload ViewingActivity.csv";
             } else {
                 List<String> lines = fileUploadService.upload(file);
-                List<ViewingActivity> viewingActivityList = analysisService.getViewingActivity(lines);
-                TempStorage.viewingActivities = viewingActivityList;
-                List<WatchedSummary> getWatchedContentByProfile = CollectionUtils.isEmpty(viewingActivityList) ? Collections.emptyList() : analysisService.getWatchedContentByProfile(viewingActivityList);
-                model.addAttribute("watchedContentByProfile", getWatchedContentByProfile);
-                List<WatchedSummary> watchedContentByDevice = CollectionUtils.isEmpty(viewingActivityList) ? Collections.emptyList() : analysisService.getWatchedContentByDevice(viewingActivityList);
-                model.addAttribute("watchedContentByDevice", watchedContentByDevice);
+                TempStorage.setViewingActivities(analysisService.getViewingActivity(lines));
+                return "redirect:/";
             }
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
@@ -51,7 +47,7 @@ public class UploadEndpoint {
         finally {
             model.addAttribute("message", message);
         }
-        return "analysis";
+        return "redirect:/";
     }
 
 }

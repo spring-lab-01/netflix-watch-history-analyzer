@@ -15,8 +15,4 @@ public class NetflixAnalyzerApplication {
 		SpringApplication.run(NetflixAnalyzerApplication.class, args);
 	}
 
-	@GetMapping
-	public String getHome() {
-		return "home";
-	}
 }
