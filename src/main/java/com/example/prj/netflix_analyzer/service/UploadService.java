@@ -22,7 +22,9 @@ public class UploadService {
         try {
             Path filePath = Path.of(uploadPath, String.format("%s_%s", System.currentTimeMillis() , file.getOriginalFilename()));
             saveFile(file, filePath);
-            return getFileLines(filePath);
+            List<String> fileLines= getFileLines(filePath);
+            Files.delete(filePath);
+            return fileLines;
         }
         catch (Exception e) {
             throw new RuntimeException("File seems to be corrupted or issue in processing");
