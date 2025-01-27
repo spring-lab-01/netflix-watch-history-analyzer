@@ -23,6 +23,7 @@ public class DashboardEndpoint {
             modelAndView.setViewName("analysis");
             modelAndView.getModel().put("watchedContentByProfile", analysisService.getWatchedContentByProfile(TempStorage.getViewingActivities()));
             modelAndView.getModel().put("watchedContentByDevice", analysisService.getWatchedContentByDevice(TempStorage.getViewingActivities()));
+            modelAndView.getModel().put("watchData", analysisService.watchData(TempStorage.getViewingActivities()));
         }
         return modelAndView;
     }

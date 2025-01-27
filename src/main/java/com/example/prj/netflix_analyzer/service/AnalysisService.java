@@ -113,4 +113,11 @@ public class AnalysisService {
         return v -> v.getDevice().trim().equalsIgnoreCase(device)
                 && v.getYear().trim().equalsIgnoreCase(year);
     }
+
+    public Map<String, Integer> watchData(List<ViewingActivity> viewingActivities) {
+        Map<String, Integer> watchData = new HashMap<>();
+        summarizeByField(viewingActivities, ViewingActivity::getProfile)
+                .forEach(watchedSummary -> watchData.put(watchedSummary.getProfile(), watchedSummary.getTotal()));
+        return watchData;
+    }
 }
