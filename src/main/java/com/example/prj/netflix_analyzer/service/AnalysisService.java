@@ -115,9 +115,8 @@ public class AnalysisService {
     }
 
     public Map<String, Integer> watchData(List<ViewingActivity> viewingActivities) {
-        Map<String, Integer> watchData = new HashMap<>();
-        summarizeByField(viewingActivities, ViewingActivity::getProfile)
-                .forEach(watchedSummary -> watchData.put(watchedSummary.getProfile(), watchedSummary.getTotal()));
-        return watchData;
+        return summarizeByField(viewingActivities, ViewingActivity::getProfile).stream()
+                .collect(Collectors.toMap(WatchedSummary::getProfile, WatchedSummary::getTotal,
+                        (oldValue, newValue) -> newValue, TreeMap::new));
     }
 }
